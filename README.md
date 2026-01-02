@@ -1,6 +1,5 @@
 # 🔐 Financial Transaction Fraud Detection System
 
-## PayPal Associate Data Scientist Portfolio Project
 
 A production-ready machine learning pipeline for detecting fraudulent financial transactions using state-of-the-art ensemble methods, class imbalance handling, and explainable AI techniques.
 
@@ -8,7 +7,7 @@ A production-ready machine learning pipeline for detecting fraudulent financial 
 
 ## 📊 Project Overview
 
-This project demonstrates end-to-end data science capabilities aligned with PayPal's core business of secure payment processing:
+This project demonstrates end-to-end data science capabilities of secure payment processing:
 
 - **Problem**: Detect fraudulent transactions in a highly imbalanced dataset (fraud rate ~0.13%)
 - **Solution**: Multi-model ensemble with SMOTE-ENN resampling and SHAP explainability
@@ -32,7 +31,7 @@ This project demonstrates end-to-end data science capabilities aligned with PayP
 ## 📁 Project Structure
 
 ```
-paypal_fraud_detection/
+fraud_detection/
 ├── README.md
 ├── requirements.txt
 ├── data/
@@ -97,29 +96,12 @@ python src/model_training.py
 python src/explainability.py
 ```
 
----
-
-## 📋 Alignment with PayPal JD Requirements
-
-| JD Requirement | Project Demonstration |
-|----------------|----------------------|
-| Develop data science models | ✅ Stacking ensemble with 3 gradient boosting models |
-| Support data analysis | ✅ Comprehensive EDA with statistical insights |
-| Ensure data quality | ✅ Data validation, missing value handling, outlier detection |
-| Cross-functional collaboration | ✅ Business-aligned metrics, stakeholder-ready visualizations |
-| Statistical analysis & reporting | ✅ Confusion matrices, ROC curves, performance reports |
-| Learn best practices | ✅ Industry-standard MLOps patterns, reproducible pipeline |
-
----
 
 ## 📊 Business Context
 
-### Why This Matters for PayPal
-
-1. **Scale**: PayPal processes 25B+ transactions annually - even 0.1% fraud costs billions
-2. **Customer Trust**: False positives hurt user experience and brand reputation
-3. **Regulatory Compliance**: Model explainability required for financial services
-4. **Real-time Decisions**: Sub-100ms inference needed for transaction approval
+1. **Customer Trust**: False positives hurt user experience and brand reputation
+2. **Regulatory Compliance**: Model explainability required for financial services
+3. **Real-time Decisions**: Sub-100ms inference needed for transaction approval
 
 ### Key Fraud Patterns Detected
 
