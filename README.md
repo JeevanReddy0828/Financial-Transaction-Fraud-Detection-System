@@ -195,25 +195,6 @@ Cost Analysis (Avg fraud=$150, Review=$5):
 
 ---
 
-## 📄 Resume Bullet Points
-
-```
-• Built credit card fraud detection system achieving 0.98 ROC-AUC and 0.85 PR-AUC 
-  on Kaggle dataset (284K transactions, 0.17% fraud) using stacking ensemble 
-  (XGBoost, LightGBM, Random Forest)
-
-• Detected 85.7% of fraud cases with 82.4% precision and only 0.03% false positive 
-  rate, reducing potential fraud losses by 85% through cost-sensitive optimization
-
-• Achieved 98% Precision@50 (49/50 top-flagged transactions were actual fraud) 
-  and 87.8% Recall at 0.1% FPR, demonstrating production-ready performance
-
-• Engineered 8 features including time encodings, amount transformations, and 
-  PCA interactions; identified V14, V4, and Amount_Zscore as top fraud predictors
-```
-
----
-
 ## 📚 Skills Demonstrated
 
 - **Machine Learning**: Ensemble methods, stacking, hyperparameter tuning
