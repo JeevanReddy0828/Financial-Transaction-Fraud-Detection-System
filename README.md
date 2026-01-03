@@ -1,125 +1,245 @@
-# 🔐 Financial Transaction Fraud Detection System
+# 🔐 Credit Card Fraud Detection System
 
+## Machine Learning Portfolio Project | Data Scientist
 
-A production-ready machine learning pipeline for detecting fraudulent financial transactions using state-of-the-art ensemble methods, class imbalance handling, and explainable AI techniques.
+Production-ready ML pipeline for detecting fraudulent credit card transactions using the **Kaggle Credit Card Fraud Detection Dataset** with industry-standard evaluation metrics.
 
----
-
-## 📊 Project Overview
-
-This project demonstrates end-to-end data science capabilities of secure payment processing:
-
-- **Problem**: Detect fraudulent transactions in a highly imbalanced dataset (fraud rate ~0.13%)
-- **Solution**: Multi-model ensemble with SMOTE-ENN resampling and SHAP explainability
-- **Business Impact**: Reduce fraud losses while minimizing false positives that hurt customer experience
+> 💡 *This project demonstrates fraud detection techniques applicable to fintech platforms like PayPal, Venmo, Stripe, and similar payment processors.*
 
 ---
 
-## 🎯 Key Features (2025 Industry Trends)
+## 📊 Dataset
 
-| Feature | Description | Industry Relevance |
-|---------|-------------|-------------------|
-| **Stacking Ensemble** | XGBoost + LightGBM + CatBoost meta-learner | Top-performing fraud detection architecture |
-| **SMOTE-ENN Hybrid Sampling** | Synthetic minority oversampling + edited nearest neighbors | State-of-the-art imbalance handling |
-| **SHAP Explainability** | Model-agnostic feature importance | Regulatory compliance (GDPR, CCPA) |
-| **Feature Engineering** | Transaction velocity, amount anomaly scores | Domain-specific fraud patterns |
-| **Cost-Sensitive Learning** | Custom class weights based on fraud costs | Business-aligned optimization |
-| **Real-time Scoring** | FastAPI-ready prediction module | Production deployment |
+**Source**: [Kaggle - Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+
+| Metric | Value |
+|--------|-------|
+| Total Transactions | 284,807 |
+| Fraud Cases | 492 (0.172%) |
+| Features | V1-V28 (PCA transformed), Time, Amount |
+| Time Period | 2 days (September 2013, European cardholders) |
+
+---
+
+## 🎯 Model Performance
+
+### Results Achieved
+
+| Metric | Value |
+|--------|-------|
+| **ROC-AUC** | 0.9829 |
+| **PR-AUC** | 0.8490 |
+| **Fraud Recall** | 85.7% (84/98 caught) |
+| **Precision** | 82.4% |
+| **Precision@50** | 98% (49/50 top flags were fraud) |
+| **False Positive Rate** | 0.03% |
+| **Cost Savings** | 85.1% reduction in fraud losses |
+
+### Confusion Matrix
+
+|  | Pred: Legitimate | Pred: Fraud |
+|--|------------------|-------------|
+| **True: Legitimate** | 56,846 ✅ | 18 |
+| **True: Fraud** | 14 ⚠️ | 84 ✅ |
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone/Download Project
+```bash
+mkdir credit_card_fraud_detection
+cd credit_card_fraud_detection
+mkdir data src models reports visualizations
+```
+
+### 2. Download Dataset
+```bash
+# Option A: Kaggle CLI
+pip install kaggle
+kaggle datasets download -d mlg-ulb/creditcardfraud
+unzip creditcardfraud.zip -d data/
+
+# Option B: Manual download
+# Go to: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+# Download and extract creditcard.csv to data/ folder
+```
+
+### 3. Install Dependencies
+```bash
+pip install pandas numpy scikit-learn xgboost lightgbm imbalanced-learn plotly openpyxl
+```
+
+### 4. Run Training
+```bash
+python src/model_training.py
+```
 
 ---
 
 ## 📁 Project Structure
 
 ```
-fraud_detection/
+credit_card_fraud_detection/
 ├── README.md
 ├── requirements.txt
 ├── data/
-│   └── transactions.csv          # Synthetic transaction data
-├── notebooks/
-│   └── fraud_detection_analysis.ipynb
+│   └── creditcard.csv              # Download from Kaggle
 ├── src/
-│   ├── __init__.py
-│   ├── data_generator.py        # Synthetic data generation
-│   ├── feature_engineering.py   # Feature creation pipeline
-│   ├── model_training.py        # Model training & evaluation
-│   └── explainability.py        # SHAP analysis
+│   └── model_training.py           # Main training pipeline
 ├── models/
-│   └── ensemble_model.pkl       # Trained model artifact
+│   └── fraud_detector.pkl          # Trained model
 ├── reports/
-│   └── model_performance.xlsx   # Metrics summary
+│   └── model_performance.xlsx      # Metrics report
 └── visualizations/
-    ├── confusion_matrix.html
-    ├── roc_curves.html
-    ├── shap_summary.html
-    └── feature_importance.html
+    ├── roc_curve.html              # ROC curve (AUC=0.98)
+    ├── precision_recall_curve.html # PR curve (AUC=0.85)
+    ├── confusion_matrix.html       # Confusion matrix
+    ├── feature_importance.html     # Top 20 features
+    └── score_distribution.html     # Score separation
 ```
 
 ---
 
-## 🔧 Technical Stack
+## 🔧 Technical Implementation
 
-- **Python 3.10+**
-- **Data Processing**: Pandas, NumPy
-- **ML Models**: XGBoost, LightGBM, CatBoost, Scikit-learn
-- **Imbalanced Learning**: imbalanced-learn (SMOTE-ENN)
-- **Explainability**: SHAP
-- **Visualization**: Plotly, Seaborn, Matplotlib
-- **Deployment Ready**: FastAPI-compatible model serialization
+### Feature Engineering
 
----
+| Feature | Description |
+|---------|-------------|
+| `Hour_sin`, `Hour_cos` | Cyclical time encoding |
+| `Log_Amount` | Log transform for skewed amounts |
+| `Amount_Zscore` | Standardized transaction amount |
+| `High_Amount` | Flag for amounts > 95th percentile |
+| `Is_Night` | Night transaction indicator (10pm-5am) |
+| `V1_V2_interaction` | PCA component interaction |
+| `V14_Amount` | Top fraud predictor × amount |
 
-## 📈 Model Performance
+### Model Architecture
 
-| Metric | Baseline (Logistic Regression) | Stacking Ensemble |
-|--------|-------------------------------|-------------------|
-| **AUC-ROC** | 0.92 | **0.98+** |
-| **Precision** | 0.65 | **0.89+** |
-| **Recall** | 0.71 | **0.85+** |
-| **F1-Score** | 0.68 | **0.87+** |
-
----
-
-## 🚀 Quick Start
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Generate synthetic data
-python src/data_generator.py
-
-# Train models
-python src/model_training.py
-
-# Generate SHAP explanations
-python src/explainability.py
+```
+Stacking Ensemble
+├── XGBoost (scale_pos_weight=100)
+├── LightGBM (class_weight='balanced')
+├── Random Forest (class_weight='balanced_subsample')
+└── Meta-learner: Logistic Regression
 ```
 
+### Class Imbalance Handling
 
-## 📊 Business Context
-
-1. **Customer Trust**: False positives hurt user experience and brand reputation
-2. **Regulatory Compliance**: Model explainability required for financial services
-3. **Real-time Decisions**: Sub-100ms inference needed for transaction approval
-
-### Key Fraud Patterns Detected
-
-- **Velocity Attacks**: Multiple small transactions in short windows
-- **Amount Anomalies**: Unusual transaction amounts relative to account history
-- **Merchant Category Misuse**: Transactions in risky merchant categories
-- **Geographic Anomalies**: Transactions from unusual locations
+- **SMOTE** oversampling (50% of majority class)
+- **Class weights** in all base models
+- **Cost-sensitive threshold** optimization (FN cost = 100× FP cost)
 
 ---
 
-## 👤 Author
+## 📈 Evaluation Metrics
 
-**Jeevan Arlagadda**  
-MS Computer Science, University of Florida  
-AWS Certified Machine Learning Associate
+### Why These Metrics Matter for Fraud Detection
+
+| Metric | Why Important |
+|--------|---------------|
+| **PR-AUC** | Better than ROC-AUC for imbalanced data (0.17% fraud) |
+| **Precision@K** | Accuracy when reviewing top K flagged transactions |
+| **Recall@FPR** | Fraud caught at acceptable false alarm rates |
+| **Cost Analysis** | Real dollar impact of model decisions |
+
+### Fraud-Specific Results
+
+```
+Precision@K (Top K highest-risk transactions):
+   Precision@  50: 0.9800 (49 fraud in top 50)
+   Precision@ 100: 0.8200 (82 fraud in top 100)
+   Precision@ 200: 0.4400 (88 fraud in top 200)
+
+Recall at Fixed False Positive Rates:
+   Recall@FPR=0.1%: 87.8% fraud caught
+   Recall@FPR=1.0%: 89.8% fraud caught
+   Recall@FPR=5.0%: 93.9% fraud caught
+```
 
 ---
 
-## 📄 License
+## 🔑 Key Findings
 
-MIT License - Feel free to use for educational purposes
+### Top Fraud Predictors
+
+| Rank | Feature | Importance | Insight |
+|------|---------|------------|---------|
+| 1 | V14 | 0.159 | Strongest PCA fraud signal |
+| 2 | V4 | 0.085 | Second strongest PCA component |
+| 3 | Amount_Zscore | 0.068 | Unusual amounts indicate fraud |
+| 4 | V1_V2_interaction | 0.063 | Feature interaction adds value |
+| 5 | High_Amount | 0.041 | Large transactions riskier |
+
+### Business Impact
+
+```
+Cost Analysis (Avg fraud=$150, Review=$5):
+   Loss without model: $14,700
+   Loss with model:    $2,190
+   Net savings:        $12,510 (85.1%)
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technologies |
+|----------|--------------|
+| **Language** | Python 3.10+ |
+| **ML Models** | XGBoost, LightGBM, Random Forest, Scikit-learn |
+| **Imbalanced Learning** | imbalanced-learn (SMOTE) |
+| **Visualization** | Plotly (interactive HTML charts) |
+| **Data Processing** | Pandas, NumPy |
+
+---
+
+## 📄 Resume Bullet Points
+
+```
+• Built credit card fraud detection system achieving 0.98 ROC-AUC and 0.85 PR-AUC 
+  on Kaggle dataset (284K transactions, 0.17% fraud) using stacking ensemble 
+  (XGBoost, LightGBM, Random Forest)
+
+• Detected 85.7% of fraud cases with 82.4% precision and only 0.03% false positive 
+  rate, reducing potential fraud losses by 85% through cost-sensitive optimization
+
+• Achieved 98% Precision@50 (49/50 top-flagged transactions were actual fraud) 
+  and 87.8% Recall at 0.1% FPR, demonstrating production-ready performance
+
+• Engineered 8 features including time encodings, amount transformations, and 
+  PCA interactions; identified V14, V4, and Amount_Zscore as top fraud predictors
+```
+
+---
+
+## 📚 Skills Demonstrated
+
+- **Machine Learning**: Ensemble methods, stacking, hyperparameter tuning
+- **Imbalanced Classification**: SMOTE, class weights, threshold optimization
+- **Feature Engineering**: Time encoding, interactions, transformations
+- **Model Evaluation**: PR-AUC, Precision@K, Recall@FPR, cost analysis
+- **Data Visualization**: Interactive Plotly dashboards
+- **Production ML**: Model serialization, modular code structure
+
+---
+
+## 🔗 References
+
+- [Kaggle Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+- [Original Research Paper - ULB Machine Learning Group](https://www.researchgate.net/publication/260837261)
+- [SMOTE Paper](https://arxiv.org/abs/1106.1813)
+- [Imbalanced Classification Best Practices](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
+
+---
+
+## 📜 License
+
+MIT License - Feel free to use for learning and portfolio purposes.
+
+---
+
+**Author**: Jeevan Arlagadda  
+**Education**: MS Computer Science, University of Florida  
+**Certification**: AWS Machine Learning Associate
