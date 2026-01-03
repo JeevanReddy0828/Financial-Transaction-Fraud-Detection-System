@@ -1,6 +1,6 @@
 # 🔐 Credit Card Fraud Detection System
 
-## Machine Learning Portfolio Project | Data Scientist
+## Machine Learning Project
 
 Production-ready ML pipeline for detecting fraudulent credit card transactions using the **Kaggle Credit Card Fraud Detection Dataset** with industry-standard evaluation metrics.
 
